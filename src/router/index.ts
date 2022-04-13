@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainView from '../views/MainView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'main',
-      component: MainView
+      path: '/load-json',
+      name: 'load-json',
+      component: () => import('../views/LoadJSON.vue')
+    },
+    {
+      path: '/edit',
+      name: '/edit',
+      component: () => import('../views/EditPanel.vue')
     }
   ]
 })

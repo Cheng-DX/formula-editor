@@ -6,9 +6,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global"],
+    "lib": ["es2021"]
   },
-
   "references": [
     {
       "path": "./tsconfig.vite-config.json"
