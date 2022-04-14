@@ -17,9 +17,7 @@ function transform() {
   let text = input.value
   let maxDeep = MAX_DEEP
 
-  text = normalize(text)
-  text = handleBracket(text)
-
+  // handle formulas in the input anf formulas in formulas
   while (
     formulas.value.some(formula => text.includes(formula.code)) &&
     maxDeep--
@@ -34,6 +32,14 @@ function transform() {
   if (maxDeep === 0) {
     throw new Error('too deep')
   }
+
+  // normalize the brackets, transform all to ( and )
+  text = normalize(text)
+
+  // handle brackets, prepare for the next step
+  text = handleBracket(text)
+
+  // handle ^2 ^0.5
   transformFns.forEach(fn => {
     let maxDeep = MAX_DEEP
     let last = 'DEFAULT'
