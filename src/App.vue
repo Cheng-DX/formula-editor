@@ -8,33 +8,30 @@ function push(path: string) {
 </script>
 
 <template>
-  <div class="root">
-    <header class="header">
-      <el-button class="btn" @click="push('/load-json')"> load JSON </el-button>
-      <el-button class="btn" @click="push('/edit')"> edit </el-button>
+  <div h-100vh display-flex flex-col flex-grow>
+    <header display-flex justify-start p-3 items-center>
+      <a
+        icon-btn
+        color-black
+        h-8
+        w-8
+        i-carbon-logo-github
+        href="https://github.com/Cheng-DX/formula-tool"
+        target="_blank"
+        title="GitHub"
+      />
+      <button btn m-inline-2 h-10 text-18px @click="push('/load-json')">
+        load JSON
+      </button>
+      <button btn h-10 text-18px @click="push('/edit')">edit</button>
     </header>
-    <RouterView />
+    <main class="h-100%">
+      <RouterView />
+    </main>
   </div>
 </template>
 
-<style scoped>
-.root {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 80px);
-}
-.btn {
-  margin: 0 10px;
-  background-color: #397f34;
-  color: white;
-  font-size: 20px;
-}
-.header {
-  height: 60px;
-  display: flex;
-  justify-content: flex-start;
-}
-</style>
+<style scoped></style>
 
 <style>
 ::-webkit-scrollbar {

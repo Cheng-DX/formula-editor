@@ -47,77 +47,41 @@ function addDataItem() {
       json.push(item)
       localStorage.setItem(tag, JSON.stringify(json))
     }
-
     transform()
   }
 }
 </script>
 
 <template>
-  <div class="edit-panel-root">
-    <div class="data">
-      <input v-model="addId" />
-      <input v-model="addCode" />
-      <button @click="addDataItem">ADD</button>
-      <div v-for="item of data" class="box">
-        <div class="text">{{ item.dataId }}</div>
-        <div class="text">{{ item.code }}</div>
+  <div flex h-90vh>
+    <div flex hp-100 flex-col items-center p-1 scroll-y>
+      <div wp-100 flex justify-between m-1>
+        <span>target</span>
+        <input v-model="addId" wp-80 />
+      </div>
+      <div w-full flex justify-between m-1>
+        <span>code</span>
+        <input v-model="addCode" wp-80 />
+      </div>
+
+      <button @click="addDataItem" btn h-10 w-20 m-2>ADD</button>
+      <div
+        v-for="item of data"
+        flex
+        justify-around
+        w-300px
+        border
+        border-gray-300
+      >
+        <div wp-33 text-center>{{ item.dataId }}</div>
+        <div wp-33 text-center>{{ item.code }}</div>
+        <div wp-33 text-center>{{ item.name }}</div>
       </div>
     </div>
-    <div class="main-panel">
-      <textarea v-model="input" class="input" />
-      <button @click="transform" class="btn">⬇️</button>
-      <textarea v-model="output" class="input" />
+    <div flex flex-col items-center flex-grow m-10px r-10>
+      <textarea v-model="input" text-18px hp-50 m-10px r-5 wp-100 />
+      <button @click="transform" btn text-6 w-50px>⬇</button>
+      <textarea v-model="output" text-18px hp-50 m-10px r-5 wp-100 />
     </div>
   </div>
 </template>
-
-<style scoped>
-.edit-panel-root {
-  display: flex;
-  height: 100%;
-  margin-top: 20px;
-}
-.data {
-  height: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #333;
-}
-.box {
-  display: flex;
-  justify-content: space-between;
-  width: 200px;
-  border: 1px solid #333;
-  border-bottom: none;
-}
-.text {
-  width: 50%;
-  text-align: center;
-}
-.main-panel {
-  display: flex;
-  flex-direction: column;
-  border: 4px dotted #333;
-  border-radius: 10px;
-  flex: 1 0;
-  margin-left: 20px;
-}
-.input {
-  height: 50%;
-  margin: 10px;
-  border: 1px solid #333;
-  border-radius: 10px;
-  outline: none;
-  font-family: consolas;
-  font-size: 16px;
-  resize: none;
-}
-.btn {
-  font-size: 30px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-</style>
