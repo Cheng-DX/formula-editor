@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
+    {
+      path: '/',
+      name: 'MAIN',
+      redirect: '/edit'
+    },
     {
       path: '/load-json',
       name: 'load-json',

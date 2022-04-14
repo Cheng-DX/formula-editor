@@ -24,6 +24,12 @@ export default defineConfig({
         'overflow-y': 'scroll'
       }
     ],
+    [
+      'scroll-x',
+      {
+        'overflow-x': 'scroll'
+      }
+    ],
     [/^wp-(\d+)$/, ([, d]) => ({ width: `${d}%` })],
     [/^hp-(\d+)$/, ([, d]) => ({ height: `${d}%` })],
     [/^r-(\d+)$/, ([, d]) => ({ 'border-radius': `${d}px` })]
