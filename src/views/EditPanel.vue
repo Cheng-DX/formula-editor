@@ -94,7 +94,7 @@ function addFormulaItem() {
 </script>
 
 <template>
-  <div flex h-90vh>
+  <div flex>
     <div flex hp-100 flex-col items-center p-1 scroll-y>
       <div v-for="key in Object.keys(newData)" wp-100 flex justify-between m-1>
         <span wp-30 text-center>{{ key }}</span>

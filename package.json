@@ -1,6 +1,6 @@
 {
   "name": "formula-tool",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -8,8 +8,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "vue": "^3.2.31"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.3",
