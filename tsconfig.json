@@ -6,7 +6,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global"],
     "lib": ["es2021"]
   },
   "references": [
