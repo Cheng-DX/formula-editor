@@ -26,12 +26,25 @@ function push(path: string) {
       <button btn h-10 text-18px @click="push('/edit')">edit</button>
     </header>
     <main class="h-100%">
-      <RouterView />
+      <transition name="fade">
+        <RouterView />
+      </transition>
     </main>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+</style>
 
 <style>
 ::-webkit-scrollbar {

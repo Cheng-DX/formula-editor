@@ -117,7 +117,15 @@ function addFormulaItem() {
     </div>
 
     <div flex flex-col items-center flex-grow m-10px r-10>
-      <textarea v-model="input" text-18px hp-50 m-10px r-5 wp-100 />
+      <textarea
+        @input="transform"
+        v-model="input"
+        text-18px
+        hp-50
+        m-10px
+        r-5
+        wp-100
+      />
       <button @click="transform" btn text-6 w-50px>⬇</button>
       <textarea v-model="output" text-18px hp-50 m-10px r-5 wp-100 />
     </div>
@@ -146,7 +154,7 @@ function addFormulaItem() {
       >
         <div>
           <span text-18px p-1 scroll-x color-red>{{ item.code }}</span>
-          <span text-18px p-1 scroll-x color-red>{{ item.name }}</span>
+          <span text-18px p-1 scroll-x color-red>{{ `(${item.name})` }}</span>
         </div>
 
         <div p-1 scroll-x>{{ item.formula }}</div>
