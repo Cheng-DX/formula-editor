@@ -66,7 +66,7 @@ function addDataItem() {
     </div>
     <div class="main-panel">
       <textarea v-model="input" class="input" />
-      <button @click="transform" class="btn">➡️</button>
+      <button @click="transform" class="btn">⬇️</button>
       <textarea v-model="output" class="input" />
     </div>
   </div>

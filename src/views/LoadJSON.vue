@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { UploadFile, UploadFiles } from 'element-plus'
 import type { DataItem, FormulaItem } from '@/types'
 import { ref } from 'vue'
 import {
@@ -12,7 +11,7 @@ import {
 } from '@/utils/fileds'
 
 const store: any = {}
-const fileList = ref<UploadFile[]>([])
+const fileList = ref([])
 async function load() {
   for (let file of fileList.value) {
     const text = await file.raw?.text()
@@ -40,7 +39,7 @@ function transformToDataItem(json: string) {
   return result
 }
 
-const formulaList = ref<UploadFile[]>([])
+const formulaList = ref([])
 async function loadFormula() {
   for (let file of formulaList.value) {
     const text = await file.raw?.text()
@@ -69,23 +68,6 @@ function transformToFormulaItem(json: string) {
 }
 </script>
 
-<template>
-  <el-upload
-    action="https://jsonplaceholder.typicode.com/posts/"
-    multiple
-    :file-list="fileList"
-  >
-    <el-button type="primary">Click to upload</el-button>
-    <el-button type="success" @click="load">LOAD</el-button>
-  </el-upload>
-  <el-upload
-    action="https://jsonplaceholder.typicode.com/posts/"
-    multiple
-    :file-list="formulaList"
-  >
-    <el-button type="primary">Click to upload</el-button>
-    <el-button type="success" @click="loadFormula">LOAD</el-button>
-  </el-upload>
-</template>
+<template></template>
 
 <style scoped></style>
