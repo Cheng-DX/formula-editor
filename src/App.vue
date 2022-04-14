@@ -1,49 +1,21 @@
 <script setup lang="ts">
-import { RouterView, useRouter } from 'vue-router'
-
-const router = useRouter()
-function push(path: string) {
-  router.push(path)
-}
+import NavBar from './views/NavBar.vue'
+import EditPanel from './views/EditPanel.vue'
 </script>
 
 <template>
   <div h-100vh display-flex flex-col flex-grow>
-    <header display-flex justify-start p-3 items-center>
-      <a
-        icon-btn
-        color-black
-        h-8
-        w-8
-        i-carbon-logo-github
-        href="https://github.com/Cheng-DX/formula-tool"
-        target="_blank"
-        title="GitHub"
-      />
-      <button btn m-inline-2 h-10 text-18px @click="push('/load-json')">
-        load JSON
-      </button>
-      <button btn h-10 text-18px @click="push('/edit')">edit</button>
-    </header>
-    <main class="h-100%">
-      <router-view v-slot="{ Component }">
-        <transition>
-          <component :is="Component" />
-        </transition>
-      </router-view>
-    </main>
+    <nav-bar h-50px class="header" />
+    <edit-panel class="main-panel" />
   </div>
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
+.header {
+  box-shadow: 0px 2px 4px #0000005d;
 }
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.main-panel {
+  height: calc(100vh - 90px);
 }
 </style>
 
