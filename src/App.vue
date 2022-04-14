@@ -26,9 +26,11 @@ function push(path: string) {
       <button btn h-10 text-18px @click="push('/edit')">edit</button>
     </header>
     <main class="h-100%">
-      <transition name="fade">
-        <RouterView />
-      </transition>
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </main>
   </div>
 </template>

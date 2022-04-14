@@ -1,36 +1,46 @@
 <script setup lang="ts">
-import type { DataItem, FormulaItem } from '@/types'
+import { initLocalStroage, storeItem } from '@/core/localStroage'
+import type { DataItem, FormulaItem } from '@/types/index'
+import { DATA_TAG, FORMULA_TAG } from '@/utils/fileds'
 import { reactive, ref } from 'vue'
+import { transformFns } from '@/core/transformFn'
 
-const data = ref<DataItem[]>([])
-const formulas = ref<FormulaItem[]>([])
+const MAX_DEEP = 10
 
-for (let key in localStorage) {
-  if (key.endsWith('INFO')) {
-    const json = localStorage.getItem(key)
-    if (json) {
-      const r = JSON.parse(json) as DataItem[]
-      data.value.push(...r)
-    }
-  } else if (key.endsWith('FORMULA')) {
-    const json = localStorage.getItem(key)
-    if (json) {
-      const r = JSON.parse(json) as FormulaItem[]
-      formulas.value.push(...r)
-    }
-  }
-}
+const { dataList: data, formulaList: formulas } = initLocalStroage()
 
 const input = ref('')
 const output = ref('')
 
 function transform() {
   let text = input.value
-
+  let maxDeep = MAX_DEEP
+  while (
+    formulas.value.some(formula => text.includes(formula.code)) &&
+    maxDeep--
+  ) {
+    for (let { code, formula } of formulas.value) {
+      if (!formula.startsWith('(') || !formula.endsWith(')')) {
+        formula = `(${formula})`
+      }
+      text = text.replaceAll(code, formula)
+    }
+  }
+  if (maxDeep === 0) {
+    throw new Error('too deep')
+  }
+  transformFns.forEach(fn => {
+    let maxDeep = MAX_DEEP
+    let last = 'DEFAULT'
+    while (last !== text && maxDeep > 0) {
+      last = text
+      text = fn(text)
+      maxDeep--
+    }
+  })
   for (let { code, dataId } of data.value) {
     text = text.replaceAll(code, dataId)
   }
-  console.log(text)
   output.value = text
 }
 
@@ -41,28 +51,20 @@ const newData = reactive<DataItem>({
   unit: ''
 })
 function addDataItem() {
-  const id = newData.dataId
-  const code = newData.code
-  if (id && code) {
+  const { dataId, code, name = 'NO_NAME', unit = '-' } = newData
+  if (dataId && code) {
     const item = {
-      dataId: id,
+      dataId,
       code,
-      name: newData.name ? newData.name : 'NO_NAME',
-      unit: newData.unit ? newData.unit : '-'
+      name,
+      unit
     }
-    const tag = 'EXTRO_INFO'
+    const tag = DATA_TAG
     data.value.push(item)
-    if (!localStorage.getItem(tag)) {
-      localStorage.setItem(tag, JSON.stringify([item]))
-    } else {
-      const json = JSON.parse(localStorage.getItem(tag) as string)
-      json.push(item)
-      localStorage.setItem(tag, JSON.stringify(json))
-    }
+    storeItem(item, tag)
     transform()
   }
 }
-
 const newFormula = reactive<FormulaItem>({
   formulaId: '',
   formula: '',
@@ -70,25 +72,17 @@ const newFormula = reactive<FormulaItem>({
   code: ''
 })
 function addFormulaItem() {
-  const code = newFormula.code
-  const formula = newFormula.formula
-  const formulaId = newFormula.formulaId
+  const { formulaId, formula, code, name = 'NO_NAME' } = newFormula
   if (code && formula && formulaId) {
     const item: FormulaItem = {
       formulaId,
-      code,
       formula,
-      name: newFormula.name ? newFormula.name : 'NO_NAME'
+      name,
+      code
     }
-    const tag = 'EXTRO_FORMULA'
+    const tag = FORMULA_TAG
     formulas.value.push(item)
-    if (!localStorage.getItem(tag)) {
-      localStorage.setItem(tag, JSON.stringify([item]))
-    } else {
-      const json = JSON.parse(localStorage.getItem(tag) as string)
-      json.push(item)
-      localStorage.setItem(tag, JSON.stringify(json))
-    }
+    storeItem(item, tag)
     transform()
   }
 }

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import EditPanelVue from '../views/EditPanel.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: '/edit',
       name: '/edit',
-      component: () => import('../views/EditPanel.vue')
+      component: EditPanelVue
     }
   ]
 })
