@@ -27,7 +27,7 @@ function push(path: string) {
     </header>
     <main class="h-100%">
       <router-view v-slot="{ Component }">
-        <transition name="fade">
+        <transition>
           <component :is="Component" />
         </transition>
       </router-view>
@@ -38,12 +38,11 @@ function push(path: string) {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.2s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  transform: rotate(90deg);
   opacity: 0;
 }
 </style>

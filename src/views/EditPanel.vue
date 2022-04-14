@@ -3,7 +3,8 @@ import { initLocalStroage, storeItem } from '@/core/localStroage'
 import type { DataItem, FormulaItem } from '@/types/index'
 import { DATA_TAG, FORMULA_TAG } from '@/utils/fileds'
 import { reactive, ref } from 'vue'
-import { transformFns } from '@/core/transformFn'
+import { transformFns, normalize } from '@/core/transformFn'
+import { handleBracket } from '@/core/handleBracket'
 
 const MAX_DEEP = 10
 
@@ -15,6 +16,10 @@ const output = ref('')
 function transform() {
   let text = input.value
   let maxDeep = MAX_DEEP
+
+  text = normalize(text)
+  text = handleBracket(text)
+
   while (
     formulas.value.some(formula => text.includes(formula.code)) &&
     maxDeep--

@@ -23,4 +23,4 @@ function normalize(src: string) {
 const transformFns = [square, sqrt]
 transformFns.push(normalize)
 
-export { transformFns }
+export { transformFns, normalize }
