@@ -50,42 +50,35 @@ export function clearAllLocalStorage() {
   }
 }
 
-// export function exportJSON() {
-//   const result = []
-//   for (let i = 0; i < size.value; i++) {
-//     for (let j = 0; j < size.value; j++) {
-//       if (pixels.value[i][j]) {
-//         result.push({
-//           x: i,
-//           y: j,
-//           color: pixels.value[i][j]
-//         })
-//       }
-//     }
-//   }
-//   const json = {
-//     mode: mode.value,
-//     data: result
-//   }
-//   const a = document.createElement('a')
-//   a.href =
-//     'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(json))
-//   a.download = 'pixels.json'
-//   a.click()
-// }
+export function exportLocalStroage() {
+  const len = localStorage.length
+  const dataList: DataItem[] = []
+  const formulaList: FormulaItem[] = []
 
-// async function handleFile(event: any) {
-//   const file = event.target.files[0]
-//   const { mode: savedMode, data } = JSON.parse(await file.text())
-//   if (data.length === 0) {
-//     alert('EMPTY FILE')
-//     return
-//   }
-//   mode.value = savedMode
-//   _clear()
-//   nextTick(() => {
-//     for (let item of data) {
-//       pixels.value[item.x][item.y] = item.color
-//     }
-//   })
-// }
+  for (let i = 0; i < len; i++) {
+    const key = localStorage.key(i)
+    if (key) {
+      const json = localStorage.getItem(key) as string
+      if (key.endsWith('INFO')) {
+        const r = JSON.parse(json) as DataItem[]
+        dataList.push(...r)
+      } else if (key.endsWith('FORMULA')) {
+        const r = JSON.parse(json) as FormulaItem[]
+        formulaList.push(...r)
+      } else {
+        console.log('unresolvable key:', key)
+      }
+    }
+  }
+  _exportJSON(JSON.stringify(dataList), 'data')
+  _exportJSON(JSON.stringify(formulaList), 'formula')
+}
+
+function _exportJSON(json: string, filename: string) {
+  const a = document.createElement('a')
+  a.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(json)
+  a.download = `${filename}.json`
+  a.click()
+}
+
+function importJSON() {}

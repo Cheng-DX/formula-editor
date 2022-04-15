@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { clearAllLocalStorage } from '@/core/localStroage'
+import { clearAllLocalStorage, exportLocalStroage } from '@/core/localStroage'
 
 function handleData() {}
 
@@ -50,7 +50,9 @@ function handleFormula() {}
           cursor-pointer
         />
       </label>
-      <button btn m-inline-2 h-10 text-18px>EXPORT FILES</button>
+      <button btn m-inline-2 h-10 text-18px @click="exportLocalStroage">
+        EXPORT FILES
+      </button>
     </div>
 
     <button

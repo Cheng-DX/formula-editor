@@ -49,6 +49,8 @@ function transform() {
       maxDeep--
     }
   })
+
+  // replace data
   for (let { code, dataId } of data.value) {
     text = text.replaceAll(code, dataId)
   }
