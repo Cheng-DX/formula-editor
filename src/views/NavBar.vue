@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import { clearAllLocalStorage, exportLocalStroage } from '@/core/localStroage'
+import {
+  clearAllLocalStorage,
+  exportLocalStroage,
+  importFiles
+} from '@/core/localStroage'
 
-function handleData() {}
-
-function handleFormula() {}
+function handleImportFiles(event: Event, tag: string) {
+  const fileInput = event.target as HTMLInputElement
+  const files = fileInput.files
+  if (files) {
+    importFiles(files, tag)
+  } else {
+    return
+  }
+}
 </script>
 
 <template>
@@ -23,7 +33,8 @@ function handleFormula() {}
         <button btn m-inline-2 h-10 text-18px>UPLOAD DATA</button>
         <input
           type="file"
-          @change="handleData"
+          multiple
+          @change="e => handleImportFiles(e, 'INFO')"
           accept=".json"
           position-absolute
           left-0
@@ -39,7 +50,8 @@ function handleFormula() {}
         <button btn h-10 text-18px>UPLOAD FORMULA</button>
         <input
           type="file"
-          @change="handleFormula"
+          multiple
+          @change="e => handleImportFiles(e, 'FORMULA')"
           accept=".json"
           position-absolute
           left-0

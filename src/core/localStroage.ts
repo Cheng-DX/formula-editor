@@ -45,8 +45,7 @@ export function clearAllLocalStorage() {
     '即将清空所有本地存储,包括所有数据和公式,该操作无法撤回,确定吗?'
   )
   if (result) {
-    // localStorage.clear()
-    console.log('clear all local storage')
+    localStorage.clear()
   }
 }
 
@@ -81,4 +80,26 @@ function _exportJSON(json: string, filename: string) {
   a.click()
 }
 
-function importJSON() {}
+export function importFiles(files: FileList, tag: string) {
+  Array.from(files).forEach(async file => {
+    const json = await file.text()
+    let filename = file.name.slice(0, -5)
+    if (!filename.endsWith(tag)) {
+      filename += tag
+    }
+    if (localStorage.getItem(filename)) {
+      const result = confirm(`${filename}已存在,覆盖(Y)或追加(N)`)
+      if (result) {
+        // overwrite
+        localStorage.setItem(filename, json)
+      } else {
+        // append
+        const array = JSON.parse(localStorage.getItem(filename) as string)
+        array.push(...JSON.parse(json))
+        localStorage.setItem(filename, JSON.stringify(array))
+      }
+    } else {
+      localStorage.setItem(filename, json)
+    }
+  })
+}
