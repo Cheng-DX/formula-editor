@@ -23,9 +23,7 @@ function transform() {
     maxDeep--
   ) {
     for (let { code, formula } of formulas.value) {
-      if (!formula.startsWith('(') || !formula.endsWith(')')) {
-        formula = `(${formula})`
-      }
+      formula = `(${formula})`
       text = text.replaceAll(code, formula)
     }
   }
