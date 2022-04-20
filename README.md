@@ -15,7 +15,7 @@ Use composable code to create formulas in GoogleAviator
 
 ## Features
 
-- IMPORT 🍞 Auto import data and formulas form JSON file.
+- IMPORT 🍞 Auto import data and formulas from JSON file.
 - EXPORT 🥐 Export and share your data and formulas.
 - EDIT 🥨 Transform real time.
 - [COMPOSABLE](#composable) 🥯 Use data code in formula moreover use formulas' code in another formula.
@@ -29,8 +29,8 @@ Use composable code to create formulas in GoogleAviator
 
 There are some tips:
 
-- Use brackets to group data, formulas will be warped in the brackets automatically.
-- DO NOT compose formulas deep then `10`.
+- Use brackets to surround data, formulas will be enclosed in the brackets automatically.
+- Depth of formula nesting should less then `10`.
 - Any formulas' or data's `codes` should not compeletely contain the `code` of other data or formula. This might cause unexpected results.
   </br>
   _I know this limitation can be solved but I don't have a good idea right now.`PR welcome`_
