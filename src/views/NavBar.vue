@@ -4,6 +4,8 @@ import {
   exportLocalStroage,
   importFiles
 } from '@/core/localStroage'
+import { computed } from '@vue/reactivity'
+import { useTips } from '@/core/sharedStates'
 
 function handleImportFiles(event: Event, tag: string) {
   const fileInput = event.target as HTMLInputElement
@@ -14,8 +16,11 @@ function handleImportFiles(event: Event, tag: string) {
     return
   }
 }
-
 const buttonClass = 'btn m-inline-2 h-8 text-1vw '
+
+const tipsState = computed(() =>
+  useTips.value ? '✅ Tips opend' : '❌ Tips closed'
+)
 </script>
 
 <template>
@@ -33,7 +38,7 @@ const buttonClass = 'btn m-inline-2 h-8 text-1vw '
           title="GitHub"
         />
         <label for="uploadFile" position-relative>
-          <button :class="buttonClass">⏫DATA</button>
+          <button :class="buttonClass">Data</button>
           <input
             type="file"
             multiple
@@ -50,7 +55,7 @@ const buttonClass = 'btn m-inline-2 h-8 text-1vw '
         </label>
 
         <label for="uploadFile" position-relative>
-          <button :class="buttonClass">⏫FORMULA</button>
+          <button :class="buttonClass">Formula</button>
           <input
             type="file"
             multiple
@@ -65,8 +70,9 @@ const buttonClass = 'btn m-inline-2 h-8 text-1vw '
             cursor-pointer
           />
         </label>
-        <button :class="buttonClass" @click="exportLocalStroage">
-          ⏬FILES
+        <button :class="buttonClass" @click="exportLocalStroage">Export</button>
+        <button :class="buttonClass" @click="useTips = !useTips">
+          {{ tipsState }}
         </button>
       </div>
       <button
@@ -79,7 +85,7 @@ const buttonClass = 'btn m-inline-2 h-8 text-1vw '
         hover:bg-red-500
         style="max-width: 150px"
       >
-        DELETE
+        Delete
       </button>
     </div>
   </header>
