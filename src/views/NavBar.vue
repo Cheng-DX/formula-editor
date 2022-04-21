@@ -14,69 +14,74 @@ function handleImportFiles(event: Event, tag: string) {
     return
   }
 }
+
+const buttonClass = 'btn m-inline-2 h-8 text-1vw '
 </script>
 
 <template>
-  <header flex justify-between p-3 items-center>
-    <div flex items-center>
-      <a
-        icon-btn
-        color-black
-        h-8
-        w-8
-        i-carbon-logo-github
-        href="https://github.com/Cheng-DX/formula-tool"
-        target="_blank"
-        title="GitHub"
-      />
-      <label for="uploadFile" position-relative>
-        <button btn m-inline-2 h-10 text-18px>UPLOAD DATA</button>
-        <input
-          type="file"
-          multiple
-          @change="e => handleImportFiles(e, 'INFO')"
-          accept=".json"
-          position-absolute
-          left-0
-          top-0
-          opacity-0
-          h-10
-          w-159px
-          cursor-pointer
+  <header wp-100>
+    <div h-30px p-10px flex justify-between items-center>
+      <div flex items-center wp-70>
+        <a
+          icon-btn
+          color-black
+          h-7
+          w-7
+          i-carbon-logo-github
+          href="https://github.com/Cheng-DX/formula-tool"
+          target="_blank"
+          title="GitHub"
         />
-      </label>
+        <label for="uploadFile" position-relative>
+          <button :class="buttonClass">⏫DATA</button>
+          <input
+            type="file"
+            multiple
+            @change="e => handleImportFiles(e, 'INFO')"
+            accept=".json"
+            position-absolute
+            left-0
+            top-0
+            opacity-0
+            h-10
+            w-159px
+            cursor-pointer
+          />
+        </label>
 
-      <label for="uploadFile" position-relative>
-        <button btn h-10 text-18px>UPLOAD FORMULA</button>
-        <input
-          type="file"
-          multiple
-          @change="e => handleImportFiles(e, 'FORMULA')"
-          accept=".json"
-          position-absolute
-          left-0
-          top-0
-          opacity-0
-          h-10
-          w-159px
-          cursor-pointer
-        />
-      </label>
-      <button btn m-inline-2 h-10 text-18px @click="exportLocalStroage">
-        EXPORT FILES
+        <label for="uploadFile" position-relative>
+          <button :class="buttonClass">⏫FORMULA</button>
+          <input
+            type="file"
+            multiple
+            @change="e => handleImportFiles(e, 'FORMULA')"
+            accept=".json"
+            position-absolute
+            left-0
+            top-0
+            opacity-0
+            h-10
+            w-159px
+            cursor-pointer
+          />
+        </label>
+        <button :class="buttonClass" @click="exportLocalStroage">
+          ⏬FILES
+        </button>
+      </div>
+      <button
+        @click="clearAllLocalStorage"
+        :class="buttonClass"
+        wp-20
+        mr-10px
+        btn
+        bg-red
+        hover:bg-red-500
+        style="max-width: 150px"
+      >
+        DELETE
       </button>
     </div>
-
-    <button
-      @click="clearAllLocalStorage"
-      btn
-      bg-red
-      hover:bg-red-500
-      h-10
-      text-18px
-    >
-      DELETE ALL
-    </button>
   </header>
 </template>
 

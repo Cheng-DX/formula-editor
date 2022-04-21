@@ -1,23 +1,19 @@
 <script setup lang="ts">
-import { initLocalStroage, storeItem } from '@/core/localStroage'
-import type { DataItem, FormulaItem } from '@/types/index'
-import { DATA_TAG, FORMULA_TAG } from '@/utils/fileds'
-import { reactive, ref } from 'vue'
+import { initLocalStroage } from '@/core/localStroage'
+import { ref } from 'vue'
 import { transformFns, normalize } from '@/core/transformFn'
 import { handleBracket } from '@/core/handleBracket'
-
-const MAX_DEEP = 10
 
 const { dataList: data, formulaList: formulas } = initLocalStroage()
 
 const input = ref('')
 const output = ref('')
 
+const MAX_DEEP = 10
 function transform() {
   let text = input.value
   let maxDeep = MAX_DEEP
 
-  // handle formulas in the input anf formulas in formulas
   while (
     formulas.value.some(formula => text.includes(formula.code)) &&
     maxDeep--
@@ -27,17 +23,10 @@ function transform() {
       text = text.replaceAll(code, formula)
     }
   }
-  if (maxDeep === 0) {
-    throw new Error('too deep')
-  }
+  if (maxDeep === 0) throw new Error('too deep')
 
-  // normalize the brackets, transform all to ( and )
   text = normalize(text)
-
-  // handle brackets, prepare for the next step
   text = handleBracket(text)
-
-  // handle ^2 ^0.5
   transformFns.forEach(fn => {
     let maxDeep = MAX_DEEP
     let last = 'DEFAULT'
@@ -48,122 +37,92 @@ function transform() {
     }
   })
 
-  // replace data
   for (let { code, dataId } of data.value) {
     text = text.replaceAll(code, dataId)
   }
   output.value = text
 }
 
-const newData = reactive<DataItem>({
-  dataId: '',
-  code: '',
-  name: '',
-  unit: ''
-})
-function addDataItem() {
-  const { dataId, code, name = 'NO_NAME', unit = '-' } = newData
-  if (dataId && code) {
-    const item = {
-      dataId,
-      code,
-      name,
-      unit
-    }
-    const tag = DATA_TAG
-    data.value.push(item)
-    storeItem(item, tag)
-    transform()
-  }
-}
-const newFormula = reactive<FormulaItem>({
-  formulaId: '',
-  formula: '',
-  name: '',
-  code: ''
-})
-function addFormulaItem() {
-  const { formulaId, formula, code, name = 'NO_NAME' } = newFormula
-  if (code && formula && formulaId) {
-    const item: FormulaItem = {
-      formulaId,
-      formula,
-      name,
-      code
-    }
-    const tag = FORMULA_TAG
-    formulas.value.push(item)
-    storeItem(item, tag)
-    transform()
-  }
+function insertFormula(code: string) {
+  input.value += code
+  transform()
 }
 </script>
 
 <template>
   <div flex>
-    <div flex hp-100 flex-col items-center p-1 scroll-y>
-      <div v-for="key in Object.keys(newData)" wp-100 flex justify-between m-1>
-        <span wp-30 text-center>{{ key }}</span>
-        <input v-model="newData[key]" wp-70 />
-      </div>
-      <button @click="addDataItem" btn h-30px w-20 m-2>ADD</button>
-      <div
-        v-for="item of data"
-        flex
-        justify-around
-        w-400px
-        border
-        border-gray-300
-      >
-        <div wp-40 text-center>{{ item.dataId }}</div>
-        <div wp-20 text-center>{{ item.code }}</div>
-        <div wp-40 text-center>{{ item.name }}</div>
+    <div flex hp-100 wp-25 color-white flex-col items-center scroll-y>
+      <div mt-10px wp-95>
+        <div
+          v-for="item of data"
+          flex-center
+          justify-around
+          p-10px
+          mt-5px
+          border
+          border-gray-300
+          r-5
+          class="bg-#826F66"
+        >
+          <span wp-30 text-center>{{ item.dataId }}</span>
+          <span wp-30 text-center>{{ item.code }}</span>
+          <span wp-40 text-center>{{ item.name }}</span>
+        </div>
       </div>
     </div>
 
     <div flex flex-col items-center flex-grow m-10px r-10>
-      <textarea
-        @input="transform"
-        v-model="input"
-        text-18px
-        hp-50
-        m-10px
-        r-5
-        wp-100
-      />
-      <button @click="transform" btn text-6 w-50px>⬇</button>
-      <textarea v-model="output" text-18px hp-50 m-10px r-5 wp-100 />
+      <textarea @input="transform" v-model="input" class="area" />
+      <div>
+        <button btn bg-red hover:bg-red-500>CLEAR</button>
+      </div>
+      <textarea v-model="output" class="area" />
     </div>
 
-    <div flex hp-100 flex-col items-center p-1 scroll-y>
-      <div
-        v-for="key in Object.keys(newFormula)"
-        wp-100
-        flex
-        justify-between
-        m-1
-      >
-        <span wp-30 text-center>{{ key }}</span>
-        <input v-model="newFormula[key]" wp-70 />
-      </div>
+    <div flex hp-100 wp-25 flex-col items-center scroll-y>
+      <div mt-10px wp-95>
+        <div
+          v-for="item of formulas"
+          flex
+          flex-col
+          mt-5px
+          justify-around
+          border
+          border-gray-300
+          r-5
+        >
+          <div @click="insertFormula(item.code)" cursor-pointer class="title">
+            <span p-5px scroll-x>{{ item.code }}</span>
+            <span p-5px scroll-x>{{ `(${item.name})` }}</span>
+          </div>
 
-      <button @click="addFormulaItem" btn h-30px w-20 m-2>ADD</button>
-      <div
-        v-for="item of formulas"
-        flex
-        flex-col
-        justify-around
-        w-400px
-        border
-        border-gray-300
-      >
-        <div>
-          <span text-18px p-1 scroll-x color-red>{{ item.code }}</span>
-          <span text-18px p-1 scroll-x color-red>{{ `(${item.name})` }}</span>
+          <span p-1 mt-10px scroll-x style="word-wrap: break-all">
+            {{ item.formula }}
+          </span>
         </div>
-
-        <div p-1 scroll-x>{{ item.formula }}</div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.title {
+  background-color: rgb(22, 127, 159);
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+}
+.area {
+  height: 50%;
+  width: calc(100% - 20px);
+  margin: 10px;
+  padding: 10px;
+  font-size: 18px;
+  font-family: 'consolas';
+  font-weight: 500;
+  border: 2px solid rgb(19, 173, 135);
+  border-radius: 10px;
+  outline: none;
+  resize: none;
+}
+</style>
