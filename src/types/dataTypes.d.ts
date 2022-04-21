@@ -11,3 +11,8 @@ export type FormulaItem = {
   name: string
   code: string
 }
+
+export type FilterFn = {
+  data: (item: DataItem) => boolean
+  formula: (item: FormulaItem) => boolean
+}

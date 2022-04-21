@@ -3,8 +3,28 @@ import { initLocalStroage } from '@/core/localStroage'
 import { ref } from 'vue'
 import { transformFns, normalize } from '@/core/transformFn'
 import { handleBracket } from '@/core/handleBracket'
+import { computed } from '@vue/reactivity'
+import type { FilterFn } from '@/types'
+import { createFilterFn } from '@/core/filterFn'
+import { useTips } from '@/core/sharedStates'
 
 const { dataList: data, formulaList: formulas } = initLocalStroage()
+
+const filterFn = ref<FilterFn>({
+  data: () => true,
+  formula: () => true
+})
+const displayedData = computed(() => {
+  return data.value.filter(filterFn.value.data)
+})
+const displayedFormulas = computed(() => {
+  return formulas.value.filter(filterFn.value.formula)
+})
+
+function filter() {
+  const text = input.value
+  filterFn.value = createFilterFn(text)
+}
 
 const input = ref('')
 const output = ref('')
@@ -43,14 +63,20 @@ function transform() {
   output.value = text
 }
 
-function insertFormula(code: string) {
+function insert(code: string) {
   input.value += code
-  transform()
+  onInput()
 }
 
 function clear() {
   input.value = ''
-  output.value = ''
+  onInput()
+}
+function onInput() {
+  if (useTips.value) {
+    filter()
+  }
+  transform()
 }
 </script>
 
@@ -59,7 +85,10 @@ function clear() {
     <div flex hp-100 wp-25 color-white flex-col items-center scroll-y>
       <div mt-10px wp-95>
         <div
-          v-for="item of data"
+          v-for="item of displayedData"
+          :key="item.code"
+          @click="insert(item.code)"
+          cursor-pointer
           flex-center
           justify-around
           p-10px
@@ -67,17 +96,17 @@ function clear() {
           border
           border-gray-300
           r-5
-          class="bg-#548CA8"
+          class="data-card"
         >
-          <span wp-30 text-center>{{ item.dataId }}</span>
-          <span wp-30 text-center>{{ item.code }}</span>
-          <span wp-40 text-center>{{ item.name }}</span>
+          <span wp-30 class="data-card-item">{{ item.dataId }}</span>
+          <span wp-30 class="data-card-item">{{ item.code }}</span>
+          <span wp-40 class="data-card-item">{{ item.name }}</span>
         </div>
       </div>
     </div>
 
     <div flex flex-col items-center flex-grow m-10px r-10>
-      <textarea @input="transform" v-model="input" class="area" />
+      <textarea @input="onInput" v-model="input" class="area" />
       <div>
         <button @click="clear" btn bg-red hover:bg-red-500>CLEAR</button>
       </div>
@@ -87,16 +116,16 @@ function clear() {
     <div flex hp-100 wp-25 flex-col items-center scroll-y>
       <div mt-10px wp-95>
         <div
-          v-for="item of formulas"
+          v-for="item of displayedFormulas"
           flex
           flex-col
           mt-5px
           justify-around
           border
-          border-gray-300
+          style="border: 1px solid #167f9f"
           r-5
         >
-          <div @click="insertFormula(item.code)" cursor-pointer class="title">
+          <div @click="insert(item.code)" cursor-pointer class="title">
             <span p-5px scroll-x>{{ item.code }}</span>
             <span p-5px scroll-x>{{ `(${item.name})` }}</span>
           </div>
@@ -111,8 +140,23 @@ function clear() {
 </template>
 
 <style scoped>
+@media (max-width: 768px) {
+  .data-card {
+    flex-direction: column;
+  }
+  .data-card-item {
+    width: 100%;
+  }
+}
+.data-card {
+  background-color: #548ca8;
+}
+.data-card-item {
+  color: #fff;
+  text-align: center;
+}
 .title {
-  background-color: rgb(22, 127, 159);
+  background-color: #167f9f;
   color: #fff;
   border-radius: 5px;
   padding: 5px;
@@ -125,7 +169,7 @@ function clear() {
   font-size: 18px;
   font-family: 'consolas';
   font-weight: 500;
-  border: 2px solid rgb(19, 173, 135);
+  border: 1px solid #1d5043;
   border-radius: 10px;
   outline: none;
   resize: none;

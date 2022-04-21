@@ -28,11 +28,11 @@ import EditPanel from './views/EditPanel.vue'
 
 <style>
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #25252549;
+  background-color: #5d58586d;
   border-radius: 3px;
 }
 </style>
