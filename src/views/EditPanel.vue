@@ -47,6 +47,11 @@ function insertFormula(code: string) {
   input.value += code
   transform()
 }
+
+function clear() {
+  input.value = ''
+  output.value = ''
+}
 </script>
 
 <template>
@@ -62,7 +67,7 @@ function insertFormula(code: string) {
           border
           border-gray-300
           r-5
-          class="bg-#826F66"
+          class="bg-#548CA8"
         >
           <span wp-30 text-center>{{ item.dataId }}</span>
           <span wp-30 text-center>{{ item.code }}</span>
@@ -74,7 +79,7 @@ function insertFormula(code: string) {
     <div flex flex-col items-center flex-grow m-10px r-10>
       <textarea @input="transform" v-model="input" class="area" />
       <div>
-        <button btn bg-red hover:bg-red-500>CLEAR</button>
+        <button @click="clear" btn bg-red hover:bg-red-500>CLEAR</button>
       </div>
       <textarea v-model="output" class="area" />
     </div>
