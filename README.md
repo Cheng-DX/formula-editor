@@ -22,6 +22,7 @@ Use composable code to create formulas in GoogleAviator
 - CUSTOMIZE 🥖 You can customize the formula editor's style.
 - BRACKET 🫓 Use brackets freely, `{}` `[]` `<>` `()` are supported.
 - [SUGER](#suger) 🍬 `^2` and `^0.5` are available to make the formula more clear.
+- [TIPS] 💡Now when you are typing, it will filter the data and formulas you might want to use.`New Feature for release 0.3.0 🙉`
 
 ## Usage
 
