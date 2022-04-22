@@ -61,7 +61,6 @@ There are some tips:
 <br>
 
 > ### `v0.3.0` 🙉🙉🙉
->
 
 #### New Features
 
@@ -77,12 +76,12 @@ There are some tips:
 <br>
 
 > ### `v0.2.1` 🐳🐳🐳
->
 
 #### Bug Fixes
 
 - always wrap formula by brackets
-- **Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.2.1...v0.2.0
+
+**Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.2.1...v0.2.0
 
 <br>
 
@@ -91,7 +90,8 @@ There are some tips:
 #### New Features
 
 - File: Import and export data and formulas is now supported.
-- **Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.2.0...v0.1.0
+
+**Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.2.0...v0.1.0
 
 <br>
 
@@ -106,7 +106,7 @@ There are some tips:
 - Bracket: Use brackets freely, `{}` `[]` `<>` `()` are supported.
 - Suger: `^2` and `^0.5` are available to make the formula more clear.
 
-- **Full Changelog**: https://github.com/Cheng-DX/formula-editor/commits/v0.1.0
+**Full Changelog**: https://github.com/Cheng-DX/formula-editor/commits/v0.1.0
 
 ## License
 
