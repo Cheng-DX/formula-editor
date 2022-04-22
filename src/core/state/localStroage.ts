@@ -43,7 +43,12 @@ export function clearAllLocalStorage() {
     '即将清空所有本地存储,包括所有数据和公式,该操作无法撤回,确定吗?'
   )
   if (result) {
-    localStorage.clear()
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key) {
+        localStorage.setItem(key, '[]')
+      }
+    }
     data.value = []
     formulas.value = []
   }
@@ -103,4 +108,17 @@ export function importFiles(files: FileList, tag: string) {
     }
     initLocalStroage()
   })
+}
+
+export function appendItem(tag: string, newItem: DataItem | FormulaItem) {
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i)
+    if (key?.endsWith(tag.toUpperCase())) {
+      console.log('key:', key)
+      const array = JSON.parse(localStorage.getItem(key) as string)
+      array.push(newItem)
+      localStorage.setItem(key, JSON.stringify(array))
+      break
+    }
+  }
 }
