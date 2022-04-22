@@ -82,7 +82,7 @@ const tipsState = computed(() =>
       <button
         @click="clearAllLocalStorage"
         :class="buttonClass"
-        wp-20
+        w-100px
         mr-10px
         btn
         bg-red
