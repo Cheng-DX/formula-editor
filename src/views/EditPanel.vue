@@ -6,7 +6,8 @@ import { handleBracket } from '@/core/handleBracket'
 import { computed } from '@vue/reactivity'
 import type { FilterFn } from '@/types'
 import { createFilterFn } from '@/core/filterFn'
-import { useTips } from '@/core/sharedStates'
+import { useTips, addPanelVisible } from '@/core/sharedStates'
+import { MyDialog } from '@/components/dialog/MyDialog'
 
 const { dataList: data, formulaList: formulas } = initLocalStroage()
 
@@ -78,10 +79,24 @@ function onInput() {
   }
   transform()
 }
+
+const target = ref('data')
+function switchTarget() {
+  target.value = target.value === 'data' ? 'formula' : 'data'
+}
+const title = computed(() => {
+  return `Add ${target.value}`
+})
 </script>
 
 <template>
-  <div flex>
+  <my-dialog :title="title" v-model="addPanelVisible">
+    <template #header>
+      <button @click="switchTarget" btn ml-10px>Switch</button>
+    </template>
+    <div wp-100 hp-100></div>
+  </my-dialog>
+  <div flex hp-100>
     <div flex hp-100 wp-25 color-white flex-col items-center scroll-y>
       <div mt-10px wp-95>
         <div
@@ -108,7 +123,7 @@ function onInput() {
     <div flex flex-col items-center flex-grow m-10px r-10>
       <textarea @input="onInput" v-model="input" class="area" />
       <div>
-        <button @click="clear" btn bg-red hover:bg-red-500>CLEAR</button>
+        <button @click="clear" btn bg-red hover:bg-red-500>Clear</button>
       </div>
       <textarea v-model="output" class="area" />
     </div>
@@ -158,7 +173,7 @@ function onInput() {
 .title {
   background-color: #167f9f;
   color: #fff;
-  border-radius: 5px;
+  border-top-left-radius: 4px;
   padding: 5px;
 }
 .area {

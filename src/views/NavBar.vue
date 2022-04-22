@@ -5,7 +5,7 @@ import {
   importFiles
 } from '@/core/localStroage'
 import { computed } from '@vue/reactivity'
-import { useTips } from '@/core/sharedStates'
+import { useTips, addPanelVisible } from '@/core/sharedStates'
 
 function handleImportFiles(event: Event, tag: string) {
   const fileInput = event.target as HTMLInputElement
@@ -16,7 +16,7 @@ function handleImportFiles(event: Event, tag: string) {
     return
   }
 }
-const buttonClass = 'btn m-inline-2 h-8 text-1vw '
+const buttonClass = 'btn m-inline-2 h-8 text-15px '
 
 const tipsState = computed(() =>
   useTips.value ? '✅ Tips opend' : '❌ Tips closed'
@@ -73,6 +73,9 @@ const tipsState = computed(() =>
         <button :class="buttonClass" @click="exportLocalStroage">Export</button>
         <button :class="buttonClass" @click="useTips = !useTips">
           {{ tipsState }}
+        </button>
+        <button :class="buttonClass" @click="addPanelVisible = true">
+          Add
         </button>
       </div>
       <button
