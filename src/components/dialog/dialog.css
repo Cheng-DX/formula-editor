@@ -13,8 +13,10 @@
   position: absolute;
   top: 50vh;
   left: 50vw;
-  height: 50vh;
+  min-height: 50vh;
   width: 50vw;
+  max-width: 450px;
+  min-width: 350px;
   transform: translateX(-50%) translateY(-50%);
   background-color: #fff;
   border-radius: 5px;
@@ -28,8 +30,8 @@
   justify-content: space-between;
   height: 50px;
   line-height: 50px;
-  border-bottom: 1px solid #ccc;
-  padding: 0 10px;
+  border-bottom: 1px solid #333;
+  padding: 0 20px;
   font-size: 18px;
   font-weight: bold;
   color: #333;
@@ -46,7 +48,8 @@
 }
 .dialog-body{
   height: calc(100% - 70px);
-  padding: 10px;
+  padding-inline: 20px;
+  padding-block: 10px;
 }
 
 .is-hidden{
