@@ -7,7 +7,7 @@
 <h1 align="center">FORMULA EDITOR</h1>
 
 <p align="center">
-Use composable code to create formulas in GoogleAviator
+Use composable code to create formulas.
 </p>
 
 <p align="center"><a href="https://cheng-dx.github.io/formula-editor">🥯 Online Playground</a></p>
