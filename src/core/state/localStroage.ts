@@ -44,6 +44,8 @@ export function clearAllLocalStorage() {
   )
   if (result) {
     localStorage.clear()
+    data.value = []
+    formulas.value = []
   }
 }
 
@@ -99,5 +101,6 @@ export function importFiles(files: FileList, tag: string) {
     } else {
       localStorage.setItem(filename, json)
     }
+    initLocalStroage()
   })
 }
