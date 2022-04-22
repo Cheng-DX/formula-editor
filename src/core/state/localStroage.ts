@@ -1,6 +1,7 @@
 import type { DataItem, FormulaItem } from '@/types/dataTypes'
 import { ref } from 'vue'
 import { DATA_TAG, FORMULA_TAG } from '@/utils/fileds'
+import { data, formulas } from './sharedStates'
 
 export function initLocalStroage() {
   const dataList = ref<DataItem[]>([])
@@ -21,11 +22,8 @@ export function initLocalStroage() {
       }
     }
   }
-
-  return {
-    dataList,
-    formulaList
-  }
+  data.value = dataList.value
+  formulas.value = formulaList.value
 }
 
 export function storeItem(item: DataItem | FormulaItem, tag: string) {

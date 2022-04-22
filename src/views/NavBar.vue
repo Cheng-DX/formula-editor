@@ -2,10 +2,11 @@
 import {
   clearAllLocalStorage,
   exportLocalStroage,
-  importFiles
-} from '@/core/localStroage'
-import { computed } from '@vue/reactivity'
-import { useTips, addPanelVisible } from '@/core/sharedStates'
+  importFiles,
+  useTips,
+  addPanelVisible
+} from '@/core'
+import { computed } from 'vue'
 
 function handleImportFiles(event: Event, tag: string) {
   const fileInput = event.target as HTMLInputElement

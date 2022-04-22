@@ -1,101 +1,45 @@
 <script setup lang="ts">
-import { initLocalStroage } from '@/core/localStroage'
 import { ref } from 'vue'
-import { transformFns, normalize } from '@/core/transformFn'
-import { handleBracket } from '@/core/handleBracket'
-import { computed } from '@vue/reactivity'
-import type { FilterFn } from '@/types'
-import { createFilterFn } from '@/core/filterFn'
-import { useTips, addPanelVisible } from '@/core/sharedStates'
-import { MyDialog } from '@/components/dialog/MyDialog'
+import {
+  initLocalStroage,
+  initDisplayedItems,
+  updateFilterFn,
+  useTips,
+  transformText
+} from '@/core'
 
-const { dataList: data, formulaList: formulas } = initLocalStroage()
+import AddPanel from '@/components/AddPanel.vue'
 
-const filterFn = ref<FilterFn>({
-  data: () => true,
-  formula: () => true
-})
-const displayedData = computed(() => {
-  return data.value.filter(filterFn.value.data)
-})
-const displayedFormulas = computed(() => {
-  return formulas.value.filter(filterFn.value.formula)
-})
-
-function filter() {
-  const text = input.value
-  filterFn.value = createFilterFn(text)
-}
+initLocalStroage()
+const { displayedData, displayedFormulas } = initDisplayedItems()
 
 const input = ref('')
 const output = ref('')
 
-const MAX_DEEP = 10
 function transform() {
-  let text = input.value
-  let maxDeep = MAX_DEEP
-
-  while (
-    formulas.value.some(formula => text.includes(formula.code)) &&
-    maxDeep--
-  ) {
-    for (let { code, formula } of formulas.value) {
-      formula = `(${formula})`
-      text = text.replaceAll(code, formula)
-    }
-  }
-  if (maxDeep === 0) throw new Error('too deep')
-
-  text = normalize(text)
-  text = handleBracket(text)
-  transformFns.forEach(fn => {
-    let maxDeep = MAX_DEEP
-    let last = 'DEFAULT'
-    while (last !== text && maxDeep > 0) {
-      last = text
-      text = fn(text)
-      maxDeep--
-    }
-  })
-
-  for (let { code, dataId } of data.value) {
-    text = text.replaceAll(code, dataId)
-  }
-  output.value = text
+  const text = input.value
+  output.value = transformText(text)
 }
 
 function insert(code: string) {
   input.value += code
   onInput()
 }
-
 function clear() {
   input.value = ''
   onInput()
 }
 function onInput() {
   if (useTips.value) {
-    filter()
+    const text = input.value
+    updateFilterFn(text)
   }
   transform()
 }
-
-const target = ref('data')
-function switchTarget() {
-  target.value = target.value === 'data' ? 'formula' : 'data'
-}
-const title = computed(() => {
-  return `Add ${target.value}`
-})
 </script>
 
 <template>
-  <my-dialog :title="title" v-model="addPanelVisible">
-    <template #header>
-      <button @click="switchTarget" btn ml-10px>Switch</button>
-    </template>
-    <div wp-100 hp-100></div>
-  </my-dialog>
+  <add-panel />
   <div flex hp-100>
     <div flex hp-100 wp-25 color-white flex-col items-center scroll-y>
       <div mt-10px wp-95>

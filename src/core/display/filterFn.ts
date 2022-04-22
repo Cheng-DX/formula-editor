@@ -1,8 +1,9 @@
 import type { DataItem, FilterFn, FormulaItem } from '@/types'
+import { filterFn as sharedFilterFn } from '../state/sharedStates'
 
 const prefixes = ['+', '-', '*', '/', '[', '{', '<']
 
-export function createFilterFn(text: string) {
+export function updateFilterFn(text: string) {
   const filterFn: FilterFn = {
     data: () => true,
     formula: () => true
@@ -23,5 +24,5 @@ export function createFilterFn(text: string) {
     }
   }
 
-  return filterFn
+  sharedFilterFn.value = filterFn
 }
