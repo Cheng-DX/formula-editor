@@ -70,7 +70,7 @@ export function exportLocalStroage() {
         const r = JSON.parse(json) as FormulaItem[]
         formulaList.push(...r)
       } else {
-        console.log('unresolvable key:', key)
+        console.warn('unresolvable key:', key)
       }
     }
   }

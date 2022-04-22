@@ -15,7 +15,6 @@ export const MyDialog = defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
-    console.log(slots)
     return () =>
       h('div', { class: ['modal', props.modelValue ? '' : 'is-hidden'] }, [
         h(
