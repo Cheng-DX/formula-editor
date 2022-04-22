@@ -114,7 +114,6 @@ export function appendItem(tag: string, newItem: DataItem | FormulaItem) {
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i)
     if (key?.endsWith(tag.toUpperCase())) {
-      console.log('key:', key)
       const array = JSON.parse(localStorage.getItem(key) as string)
       array.push(newItem)
       localStorage.setItem(key, JSON.stringify(array))

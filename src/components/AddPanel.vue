@@ -33,7 +33,6 @@ function add() {
 
 const buttonAvailable = computed(() => {
   const { code, name, target } = item.value
-  console.log(code !== '' && name !== '' && target != '')
   return code !== '' && name !== '' && target != ''
 })
 </script>
