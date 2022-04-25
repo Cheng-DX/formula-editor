@@ -98,6 +98,8 @@ export function importFiles(files: FileList, tag: string) {
       filename += tag
 
     if (localStorage.getItem(filename)) {
+      // eslint-disable-next-line no-alert
+      // TODO: remove confirm
       const result = confirm(`${filename}已存在,覆盖(Y)或追加(N)`)
       if (result) {
         // overwrite
