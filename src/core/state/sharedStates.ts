@@ -1,5 +1,5 @@
-import type { DataItem, FilterFn, FormulaItem } from '@/types'
 import { ref } from 'vue'
+import type { DataItem, FilterFn, FormulaItem } from '@/types'
 
 export const useTips = ref(true)
 
@@ -14,5 +14,5 @@ export const formulas = ref<FormulaItem[]>([])
 
 export const filterFn = ref<FilterFn>({
   data: () => true,
-  formula: () => true
+  formula: () => true,
 })

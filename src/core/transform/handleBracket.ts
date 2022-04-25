@@ -21,7 +21,7 @@ function replaceBrackets(
   idxes: number[],
   src: string,
   startBracket: string,
-  endBracket: string
+  endBracket: string,
 ) {
   idxes.forEach(idx => {
     const stack: string[] = []
@@ -30,13 +30,15 @@ function replaceBrackets(
       const char = src[i]
       if (char === ')') {
         stack.push(char)
-      } else if (char === '(') {
+      }
+      else if (char === '(') {
         stack.pop()
         if (stack.length === 0) {
           startBracketIdx = i
           break
         }
-      } else {
+      }
+      else {
         continue
       }
     }
@@ -46,7 +48,8 @@ function replaceBrackets(
       charArr[startBracketIdx] = startBracket
       charArr[endBracketIdx] = endBracket
       src = charArr.join('')
-    } else {
+    }
+    else {
       throw new Error('cannot find start bracket')
     }
   })

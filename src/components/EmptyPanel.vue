@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div hp-100 flex-center flex-col>
-    <img class="img" src="@/assets/open-box.png" />
+    <img class="img" src="@/assets/open-box.png">
     <span class="text" mt-3px>{{ text ? text : 'No Results' }}</span>
   </div>
 </template>

@@ -1,4 +1,4 @@
-import { defineComponent, Fragment, h } from 'vue'
+import { Fragment, defineComponent, h } from 'vue'
 import './dialog.css'
 
 export const MyDialog = defineComponent({
@@ -6,12 +6,12 @@ export const MyDialog = defineComponent({
   props: {
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     modelValue: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
@@ -20,13 +20,13 @@ export const MyDialog = defineComponent({
         h(
           'div',
           {
-            class: ['dialog', props.modelValue ? '' : 'is-hidden']
+            class: ['dialog', props.modelValue ? '' : 'is-hidden'],
           },
           [
             h('div', { class: 'dialog-header' }, [
               h('div', null, [
                 h('span', { class: 'title' }, props.title),
-                h(Fragment, null, slots.header?.())
+                h(Fragment, null, slots.header?.()),
               ]),
               h(
                 'button',
@@ -34,14 +34,14 @@ export const MyDialog = defineComponent({
                   class: 'close-button',
                   onClick: () => {
                     emit('update:modelValue', false)
-                  }
+                  },
                 },
-                '❌'
-              )
+                '❌',
+              ),
             ]),
-            h('div', { class: 'dialog-body' }, slots.default?.())
-          ]
-        )
+            h('div', { class: 'dialog-body' }, slots.default?.()),
+          ],
+        ),
       ])
-  }
+  },
 })

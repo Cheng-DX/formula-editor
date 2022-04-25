@@ -1,12 +1,12 @@
-import type { DataItem, FilterFn, FormulaItem } from '@/types'
 import { filterFn as sharedFilterFn } from '../state/sharedStates'
+import type { DataItem, FilterFn, FormulaItem } from '@/types'
 
 const prefixes = ['+', '-', '*', '/', '[', '{', '<']
 
 export function updateFilterFn(text: string) {
   const filterFn: FilterFn = {
     data: () => true,
-    formula: () => true
+    formula: () => true,
   }
 
   const matched = text.match(/[+\-*\/\[\{\(\<]{0,1}[a-zA-Z0-9\_]+$/)
@@ -14,9 +14,9 @@ export function updateFilterFn(text: string) {
     const idx = matched.index
     if (idx !== null && idx !== undefined) {
       let candidateKey = text.substring(idx, text.length)
-      if (prefixes.includes(candidateKey[0])) {
+      if (prefixes.includes(candidateKey[0]))
         candidateKey = candidateKey.substring(1, candidateKey.length)
-      }
+
       filterFn.data = (item: DataItem) =>
         item.code.includes(candidateKey) || item.name.includes(candidateKey)
       filterFn.formula = (item: FormulaItem) =>

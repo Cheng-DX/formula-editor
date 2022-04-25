@@ -1,26 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import {
+  addPanelVisible,
   clearAllLocalStorage,
   exportLocalStroage,
   importFiles,
   useTips,
-  addPanelVisible
 } from '@/core'
-import { computed } from 'vue'
 
 function handleImportFiles(event: Event, tag: string) {
   const fileInput = event.target as HTMLInputElement
   const files = fileInput.files
-  if (files) {
+  if (files)
     importFiles(files, tag)
-  } else {
-    return
-  }
 }
 const buttonClass = 'btn m-inline-2 h-8 text-15px '
 
 const tipsState = computed(() =>
-  useTips.value ? '✅ Tips opend' : '❌ Tips closed'
+  useTips.value ? '✅ Tips opend' : '❌ Tips closed',
 )
 </script>
 
@@ -43,7 +40,6 @@ const tipsState = computed(() =>
           <input
             type="file"
             multiple
-            @change="e => handleImportFiles(e, 'INFO')"
             accept=".json"
             position-absolute
             left-0
@@ -52,7 +48,8 @@ const tipsState = computed(() =>
             h-10
             w-159px
             cursor-pointer
-          />
+            @change="e => handleImportFiles(e, 'INFO')"
+          >
         </label>
 
         <label for="uploadFile" position-relative>
@@ -60,7 +57,6 @@ const tipsState = computed(() =>
           <input
             type="file"
             multiple
-            @change="e => handleImportFiles(e, 'FORMULA')"
             accept=".json"
             position-absolute
             left-0
@@ -69,9 +65,12 @@ const tipsState = computed(() =>
             h-10
             w-159px
             cursor-pointer
-          />
+            @change="e => handleImportFiles(e, 'FORMULA')"
+          >
         </label>
-        <button :class="buttonClass" @click="exportLocalStroage">Export</button>
+        <button :class="buttonClass" @click="exportLocalStroage">
+          Export
+        </button>
         <button :class="buttonClass" @click="useTips = !useTips">
           {{ tipsState }}
         </button>
@@ -80,7 +79,6 @@ const tipsState = computed(() =>
         </button>
       </div>
       <button
-        @click="clearAllLocalStorage"
         :class="buttonClass"
         w-100px
         mr-10px
@@ -88,6 +86,7 @@ const tipsState = computed(() =>
         bg-red
         hover:bg-red-500
         style="max-width: 150px"
+        @click="clearAllLocalStorage"
       >
         Delete
       </button>

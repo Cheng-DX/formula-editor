@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { MyDialog } from '@/components/dialog/MyDialog'
-import { ref, computed } from 'vue'
 import { addPanelVisible } from '@/core'
 import type { AddItem } from '@/types'
 import { addData, addFormula } from '@/core/state/addItem'
@@ -16,40 +16,42 @@ const title = computed(() => {
 const item = ref<AddItem>({
   code: '',
   name: '',
-  target: ''
+  target: '',
+})
+
+const buttonAvailable = computed(() => {
+  const { code, name, target } = item.value
+  return code !== '' && name !== '' && target !== ''
 })
 
 function add() {
   if (buttonAvailable.value) {
-    if (target.value === 'data') {
+    if (target.value === 'data')
       addData(item.value)
-    } else if (target.value === 'formula') {
+    else if (target.value === 'formula')
       addFormula(item.value)
-    } else {
-      return
-    }
   }
 }
 
-const buttonAvailable = computed(() => {
-  const { code, name, target } = item.value
-  return code !== '' && name !== '' && target != ''
-})
 </script>
 
 <template>
-  <my-dialog :title="title" v-model="addPanelVisible">
+  <my-dialog v-model="addPanelVisible" :title="title">
     <template #header>
-      <button @click="switchTarget" btn ml-10px>🔁 Switch</button>
+      <button btn ml-10px @click="switchTarget">
+        🔁 Switch
+      </button>
     </template>
     <div wp-100 hp-100 flex flex-col>
-      <div v-for="key in Object.keys(item)" class="item">
-        <div :for="key" class="name">{{ key }}</div>
+      <div v-for="key in Object.keys(item)" :key="key" class="item">
+        <div :for="key" class="name">
+          {{ key }}
+        </div>
         <textarea v-if="key === 'target'" v-model="item[key]" class="area" />
-        <input v-else v-model="item[key]" class="input" />
+        <input v-else v-model="item[key]" class="input">
       </div>
       <div flex-center>
-        <button btn w-100px h-35px @click="add" :disabled="!buttonAvailable">
+        <button btn w-100px h-35px :disabled="!buttonAvailable" @click="add">
           Push
         </button>
       </div>
