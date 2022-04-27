@@ -8,6 +8,21 @@ function _findMathedIdx(text: string) {
   return matched?.index
 }
 
+function _containKeyInOrder(text: string, candidateKey: string, ignoreCase = false) {
+  if (ignoreCase) {
+    text = text.toLowerCase()
+    candidateKey = candidateKey.toLowerCase()
+  }
+  let i = 0
+  let j = 0
+  while (i < text.length && j < candidateKey.length) {
+    if (text[i] === candidateKey[j])
+      j++
+    i++
+  }
+  return j === candidateKey.length
+}
+
 export function updateFilterFn(text: string) {
   const filterFn: FilterFn = {
     data: () => true,
@@ -19,10 +34,8 @@ export function updateFilterFn(text: string) {
     if (prefixes.includes(candidateKey[0]))
       candidateKey = candidateKey.substring(1, candidateKey.length)
 
-    filterFn.data = (item: DataItem) =>
-      item.code.includes(candidateKey)
-    filterFn.formula = (item: FormulaItem) =>
-      item.code.includes(candidateKey)
+    filterFn.data = (item: DataItem) => _containKeyInOrder(item.code, candidateKey, true)
+    filterFn.formula = (item: FormulaItem) => _containKeyInOrder(item.code, candidateKey, true)
   }
 
   sharedFilterFn.value = filterFn
