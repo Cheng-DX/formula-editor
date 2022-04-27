@@ -4,6 +4,7 @@ import EmptyPanel from '../components/EmptyPanel.vue'
 import {
   initDisplayedItems,
   initLocalStroage,
+  smartInsert,
   transformText,
   updateFilterFn,
   useTips,
@@ -23,7 +24,14 @@ function transform() {
 }
 
 function insert(code: string) {
-  input.value += code
+  if (useTips.value) {
+    const text = input.value
+    input.value = smartInsert(text, code)
+  }
+  else {
+    input.value += code
+  }
+
   onInput()
 }
 function clear() {
