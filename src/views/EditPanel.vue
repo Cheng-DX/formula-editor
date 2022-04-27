@@ -45,6 +45,16 @@ function onInput() {
   }
   transform()
 }
+
+function insertFirstData() {
+  if (displayedData.value.length > 0)
+    insert(displayedData.value[0].code)
+}
+
+function insertFirstFormula() {
+  if (displayedFormulas.value.length > 0)
+    insert(displayedFormulas.value[0].code)
+}
 </script>
 
 <template>
@@ -75,7 +85,13 @@ function onInput() {
     </div>
 
     <div flex flex-col items-center flex-grow m-10px r-10>
-      <textarea v-model="input" class="area" @input="onInput" />
+      <textarea
+        v-model="input"
+        class="area"
+        @keyup.ctrl.enter="insertFirstData"
+        @keyup.alt.enter="insertFirstFormula"
+        @input="onInput"
+      />
       <div>
         <button btn bg-red hover:bg-red-500 h-30px @click="clear">
           Clear

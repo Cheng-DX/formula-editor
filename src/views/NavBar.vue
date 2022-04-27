@@ -4,6 +4,7 @@ import {
   addPanelVisible,
   clearAllLocalStorage,
   exportLocalStroage,
+  filterFn,
   importFiles,
   useTips,
 } from '@/core'
@@ -19,6 +20,14 @@ const buttonClass = 'btn m-inline-2 h-8 text-15px '
 const tipsState = computed(() =>
   useTips.value ? '✅ Tips opend' : '❌ Tips closed',
 )
+
+function switchUseTips() {
+  useTips.value = !useTips.value
+  filterFn.value = {
+    data: () => true,
+    formula: () => true,
+  }
+}
 </script>
 
 <template>
@@ -71,7 +80,7 @@ const tipsState = computed(() =>
         <button :class="buttonClass" @click="exportLocalStroage">
           Export
         </button>
-        <button :class="buttonClass" @click="useTips = !useTips">
+        <button :class="buttonClass" @click="switchUseTips">
           {{ tipsState }}
         </button>
         <button :class="buttonClass" @click="addPanelVisible = true">
