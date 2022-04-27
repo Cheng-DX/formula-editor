@@ -44,6 +44,21 @@ There are some tips:
 
 ## Releases
 
+> ### `v0.3.2` 🐼🐼🐼
+
+#### New Features
+
+- `Smart insert`: Improved insert logic when click the data or formula card, now it will overwrite your prefixed. Closable too.
+  >  For example: <br>
+  >  when you input: `COKE` <br>
+  >  these data and formulas might be provided: `V_ij_COKE` `a_COKE` `b_COKE` <br>
+  >  then click one of them: `V_ij_COKE` <br>
+  >  the input will be: `V_ij_COKE` instead of `COKEV_ij_COKE` now <br>
+
+**Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.3.1...v0.3.2
+
+<br>
+
 > ### `v0.3.1` 🐻🐻🐻
 
 #### New Features
