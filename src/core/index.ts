@@ -1,4 +1,4 @@
-export * from './state/localStroage'
+export * from './state/localStorage'
 export * from './state/sharedStates'
 
 export * from './transform/transformFn'

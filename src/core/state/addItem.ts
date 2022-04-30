@@ -1,4 +1,4 @@
-import { appendItem } from './localStroage'
+import { appendItem } from './localStorage'
 import { data, formulas } from './sharedStates'
 import type { AddItem } from '@/types'
 

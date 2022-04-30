@@ -3,7 +3,7 @@ import { data, formulas } from './sharedStates'
 import type { DataItem, FormulaItem } from '@/types/dataTypes'
 import { DATA_TAG, FORMULA_TAG } from '@/utils/fileds'
 
-export function initLocalStroage() {
+export function initLocalStorage() {
   const dataList = ref<DataItem[]>([])
   const formulaList = ref<FormulaItem[]>([])
 
@@ -57,7 +57,7 @@ export function clearAllLocalStorage() {
   }
 }
 
-export function exportLocalStroage() {
+export function exportLocalStorage() {
   const len = localStorage.length
   const dataList: DataItem[] = []
   const formulaList: FormulaItem[] = []
@@ -115,7 +115,7 @@ export function importFiles(files: FileList, tag: string) {
     else {
       localStorage.setItem(filename, json)
     }
-    initLocalStroage()
+    initLocalStorage()
   })
 }
 

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import {
   addPanelVisible,
   clearAllLocalStorage,
-  exportLocalStroage,
+  exportLocalStorage,
   filterFn,
   importFiles,
   useTips,
@@ -35,49 +35,25 @@ function switchUseTips() {
     <div h-30px p-10px flex justify-between items-center>
       <div flex items-center wp-70>
         <a
-          icon-btn
-          color-black
-          h-7
-          w-7
-          i-carbon-logo-github
-          href="https://github.com/Cheng-DX/formula-tool"
-          target="_blank"
-          title="GitHub"
+          icon-btn color-black h-7 w-7 i-carbon-logo-github href="https://github.com/Cheng-DX/formula-tool"
+          target="_blank" title="GitHub"
         />
         <label for="uploadFile" position-relative>
           <button :class="buttonClass">Data</button>
           <input
-            type="file"
-            multiple
-            accept=".json"
-            position-absolute
-            left-0
-            top-0
-            opacity-0
-            h-10
-            w-159px
-            cursor-pointer
-            @change="e => handleImportFiles(e, 'INFO')"
+            type="file" multiple accept=".json" position-absolute left-0 top-0 opacity-0 h-10 w-159px
+            cursor-pointer @change="e => handleImportFiles(e, 'INFO')"
           >
         </label>
 
         <label for="uploadFile" position-relative>
           <button :class="buttonClass">Formula</button>
           <input
-            type="file"
-            multiple
-            accept=".json"
-            position-absolute
-            left-0
-            top-0
-            opacity-0
-            h-10
-            w-159px
-            cursor-pointer
-            @change="e => handleImportFiles(e, 'FORMULA')"
+            type="file" multiple accept=".json" position-absolute left-0 top-0 opacity-0 h-10 w-159px
+            cursor-pointer @change="e => handleImportFiles(e, 'FORMULA')"
           >
         </label>
-        <button :class="buttonClass" @click="exportLocalStroage">
+        <button :class="buttonClass" @click="exportLocalStorage">
           Export
         </button>
         <button :class="buttonClass" @click="switchUseTips">
@@ -88,13 +64,7 @@ function switchUseTips() {
         </button>
       </div>
       <button
-        :class="buttonClass"
-        w-100px
-        mr-10px
-        btn
-        bg-red
-        hover:bg-red-500
-        style="max-width: 150px"
+        :class="buttonClass" w-100px mr-10px btn bg-red hover:bg-red-500 style="max-width: 150px"
         @click="clearAllLocalStorage"
       >
         Delete
@@ -103,4 +73,5 @@ function switchUseTips() {
   </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
