@@ -32,9 +32,9 @@ There are some tips:
 
 - Use brackets to surround data, formulas will be enclosed in the brackets automatically.
 - Depth of formula nesting should less then `10`.
-- Any formulas' or data's `codes` should not compeletely contain the `code` of other data or formula. This might cause unexpected results.
+- ~~Any formulas' or data's `codes` should not compeletely contain the `code` of other data or formula. This might cause unexpected results.~~
   </br>
-  _I know this limitation can be solved but I don't have a good idea right now.`PR welcome`_
+  _It's avalible in release `v0.4.0-beta.`_
 
 ### suger
 
@@ -43,6 +43,14 @@ There are some tips:
 - Make your own `Suger` by add new transform function. Well,`PR welcome` too.
 
 ## Releases
+
+> ### `v0.4.0-beta` 🦁🦁🦁
+
+#### New Features
+
+- `CompeletelyContains`: In this release, formulas' or data's `codes` **can** compeletely contain the `code` of other data or formula. `Beta test`.
+
+**Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.3.2...v0.4.0-beta
 
 > ### `v0.3.2` 🐼🐼🐼
 
