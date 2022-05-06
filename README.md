@@ -49,6 +49,8 @@ There are some tips:
 #### New Features
 
 - `CompeletelyContains`: In this release, formulas' or data's `codes` **can** compeletely contain the `code` of other data or formula. `Beta test`.
+- `Quick Insert`:  Use alt/ctrl+enter to insert the first formula/data
+- `New Filter Function`: Rewrite filter function, it will show all items contains input value in order
 
 **Full Changelog**: https://github.com/Cheng-DX/formula-editor/compare/v0.3.2...v0.4.0-beta
 
