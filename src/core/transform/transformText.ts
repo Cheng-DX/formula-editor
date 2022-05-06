@@ -12,7 +12,7 @@ export function transformText(text: string) {
     // eslint-disable-next-line prefer-const
     for (let { code, formula } of formulas.value) {
       formula = `(${formula})`
-      text = text.replaceAll(code, formula)
+      text = replaceAll(text, code, formula)
     }
   }
   if (formulaDepth === 0)
@@ -31,7 +31,23 @@ export function transformText(text: string) {
   })
 
   for (const { code, dataId } of data.value)
-    text = text.replaceAll(code, dataId)
+    text = replaceAll(text, code, dataId)
 
   return text
 }
+
+function replaceAll(str: string, target: string, replacement: string) {
+  const normalChar = /[a-zA-Z0-9\-_]/
+  let index = str.indexOf(target)
+  while (index !== -1) {
+    if (str[index - 1]?.match(normalChar)
+    || str[index + target.length]?.match(normalChar)) {
+      index = str.indexOf(target, index + 1)
+      continue
+    }
+    str = str.substring(0, index) + replacement + str.substring(index + target.length)
+    index = str.indexOf(target)
+  }
+  return str
+}
+
