@@ -3,7 +3,7 @@ import type { DataItem, FilterFn, FormulaItem } from '@/types'
 
 const prefixes = ['+', '-', '*', '/', '[', '{', '<']
 
-function _findMathedIdx(text: string) {
+function _findMatchedIdx(text: string) {
   const matched = text.match(/[+\-*\/\[\{\(\<]{0,1}[a-zA-Z0-9\_]+$/)
   return matched?.index
 }
@@ -28,7 +28,7 @@ export function updateFilterFn(text: string) {
     data: () => true,
     formula: () => true,
   }
-  const idx = _findMathedIdx(text)
+  const idx = _findMatchedIdx(text)
   if (idx !== null && idx !== undefined) {
     let candidateKey = text.substring(idx, text.length)
     if (prefixes.includes(candidateKey[0]))
@@ -42,7 +42,7 @@ export function updateFilterFn(text: string) {
 }
 
 export function smartInsert(text: string, code: string) {
-  let idx = _findMathedIdx(text)
+  let idx = _findMatchedIdx(text)
   if (idx !== null && idx !== undefined) {
     if (prefixes.includes(text[idx]))
       idx++

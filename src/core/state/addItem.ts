@@ -10,7 +10,7 @@ export function addFormula(item: AddItem) {
     code: item.code,
   }
   appendItem('formula', newFormula)
-  formulas.value.push(newFormula)
+  formulas.value.splice(0, 0, newFormula)
 }
 
 export function addData(item: AddItem) {
@@ -21,5 +21,5 @@ export function addData(item: AddItem) {
     unit: '-',
   }
   appendItem('info', newData)
-  data.value.push(newData)
+  data.value.splice(0, 0, newData)
 }
