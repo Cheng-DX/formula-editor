@@ -37,7 +37,7 @@ export function transformText(text: string) {
 }
 
 function replaceAll(str: string, target: string, replacement: string) {
-  const normalChar = /[a-zA-Z0-9\-_]/
+  const normalChar = /[a-zA-Z0-9_]/
   let index = str.indexOf(target)
   while (index !== -1) {
     if (str[index - 1]?.match(normalChar)
