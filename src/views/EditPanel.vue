@@ -62,10 +62,8 @@ function insertFirstFormula() {
   <div flex hp-100>
     <div flex hp-100 wp-25 color-white flex-col items-center scroll-y>
       <div v-if="displayedData.length > 0" key="data" mt-10px wp-95>
-        <div
-          v-for="item of displayedData" :key="item.code" cursor-pointer flex-center justify-around p-10px mt-5px
-          border border-gray-300 r-5 class="data-card" @click="insert(item.code)"
-        >
+        <div v-for="item of displayedData" :key="item.code" cursor-pointer flex-center justify-around p-10px mt-5px
+          border border-gray-300 r-5 class="data-card" @click="insert(item.code)">
           <span wp-30 class="data-card-item">{{ item.dataId }}</span>
           <span wp-30 class="data-card-item">{{ item.code }}</span>
           <span wp-40 class="data-card-item">{{ item.name }}</span>
@@ -75,13 +73,11 @@ function insertFirstFormula() {
     </div>
 
     <div flex flex-col items-center flex-grow m-10px r-10>
-      <textarea
-        v-model="input" class="area" @keyup.ctrl.enter="insertFirstData" @keyup.alt.enter="insertFirstFormula"
-        @input="onInput"
-      />
+      <textarea v-model="input" class="area" @keyup.ctrl.enter="insertFirstData" @keyup.alt.enter="insertFirstFormula"
+        @input="onInput" />
       <div>
         <button btn bg-red hover:bg-red-500 h-30px @click="clear">
-          Clear
+          <div i-carbon-text-clear-format text-4 />
         </button>
       </div>
       <textarea v-model="output" class="area" />
@@ -89,10 +85,8 @@ function insertFirstFormula() {
 
     <div flex hp-100 wp-25 flex-col items-center scroll-y>
       <div v-if="displayedFormulas.length > 0" key="formula" mt-10px wp-95>
-        <div
-          v-for="item of displayedFormulas" :key="item.code" flex flex-col mt-5px justify-around border
-          style="border: 1px solid #167f9f" r-5
-        >
+        <div v-for="item of displayedFormulas" :key="item.code" flex flex-col mt-5px justify-around border
+          style="border: 1px solid #167f9f" r-5>
           <div cursor-pointer class="title" @click="insert(item.code)">
             <span p-5px scroll-x>{{ item.code }}</span>
             <span p-5px scroll-x>{{ `(${item.name})` }}</span>

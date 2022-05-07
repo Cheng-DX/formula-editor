@@ -42,7 +42,7 @@ function add() {
         🔁 Switch
       </button>
     </template>
-    <div wp-100 hp-100 flex flex-col>
+    <div hp-100 wp-100 flex flex-col>
       <div v-for="key in Object.keys(item)" :key="key" class="item">
         <div :for="key" class="name">
           {{ key }}
@@ -65,12 +65,14 @@ function add() {
   flex-direction: column;
   margin-bottom: 10px;
 }
+
 .name {
   width: 20%;
   height: 30px;
   line-height: 30px;
   font-size: 20px;
 }
+
 .input {
   width: 100%;
   height: 30px;
@@ -80,12 +82,22 @@ function add() {
   border-bottom: 1px dotted rgb(122, 120, 120);
   outline: none;
 }
+
 .area {
-  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  width: calc(100%-20px);
   height: 200px;
   border-bottom: 1px dotted rgb(122, 120, 120);
   border-radius: 5px;
   resize: none;
   outline: none;
+}
+
+.target-area {
+  padding: 10px;
+  font-size: 16px;
+  height: calc(100%-20px);
+  width: calc(100%-20px);
 }
 </style>
