@@ -38,7 +38,7 @@ There are some tips:
 
 ### suger
 
-- `^2` means square.`(someCode)^2` will be parsed as `square(someCode)`. This is my Aviator's custom function, you can change this by replaceing the template string of function _`square`_ in the file _[transformFn.ts](./src/core/transformFn.ts)_.
+- `^2` means square.`(someCode)^2` will be parsed as `square(someCode)`. This is my Aviator's custom function, you can change this by replaceing the template string of function _`square`_ in the file _[transformFn.ts](./src/core/transform/transformFn.ts)_
 - `^0.5` means square root.`(someCode)^0.5` will be parsed as `math.sqrt(someCode)`. This is the same with Aviator preset function.
 - Make your own `Suger` by add new transform function. Well,`PR welcome` too.
 
