@@ -86,18 +86,11 @@ function add() {
 .area {
   padding: 10px;
   font-size: 16px;
-  width: calc(100%-20px);
+  width: calc(100% - 20px);
   height: 200px;
   border-bottom: 1px dotted rgb(122, 120, 120);
   border-radius: 5px;
   resize: none;
   outline: none;
-}
-
-.target-area {
-  padding: 10px;
-  font-size: 16px;
-  height: calc(100%-20px);
-  width: calc(100%-20px);
 }
 </style>
