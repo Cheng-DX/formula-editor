@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import NavBar from './views/NavBar.vue'
 import EditPanel from './views/EditPanel.vue'
+import useDarkMode from './core/use/useDarkMode'
+
+const { darkMode, color, backgroundColor } = useDarkMode()
 </script>
 
 <template>
-  <div class="root">
+  <div
+    class="root" :style="{
+      color,
+      backgroundColor
+    }"
+  >
     <nav-bar h-50px class="header" />
     <edit-panel mt-50px class="main" />
   </div>

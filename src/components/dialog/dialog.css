@@ -1,15 +1,15 @@
-
-.modal{
+.modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
   z-index: 3000;
+  background: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease-in-out;
 }
-.dialog{
+
+.dialog {
   position: absolute;
   top: 50vh;
   left: 50vw;
@@ -18,14 +18,12 @@
   max-width: 450px;
   min-width: 350px;
   transform: translateX(-50%) translateY(-50%);
-  background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.416);
   z-index: 3001;
   transition: opacity 0.3s ease-in-out;
 }
 
-.dialog-header{
+.dialog-header {
   display: flex;
   justify-content: space-between;
   height: 50px;
@@ -34,25 +32,25 @@
   padding: 0 20px;
   font-size: 18px;
   font-weight: bold;
-  color: #333;
 }
-.close-button{
+
+.close-button {
   background-color: transparent;
   outline: none;
   border: none;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
-  color: #333;
   cursor: pointer;
 }
-.dialog-body{
+
+.dialog-body {
   height: calc(100% - 70px);
   padding-inline: 20px;
   padding-block: 10px;
 }
 
-.is-hidden{
+.is-hidden {
   top: -100vh;
   opacity: 0;
 }
