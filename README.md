@@ -10,7 +10,10 @@
 Use composable code to create formulas.
 </p>
 
-<p align="center"><a href="https://cheng-dx.github.io/formula-editor">🥯 Online Playground</a></p>
+<p align="center">
+  <a href="https://cheng-dx.github.io/formula-editor">🥯 Online Playground</a>
+  [![Netlify Status](https://api.netlify.com/api/v1/badges/10c35136-9f02-482b-8da5-5629a26f6602/deploy-status)](https://app.netlify.com/sites/formula-editor/deploys)
+ </p>
 <br>
 
 ## Features
